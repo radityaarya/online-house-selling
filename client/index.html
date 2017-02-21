@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <title>Homee -Jual Beli Properti Terpercaya </title>
+  </head>
+  <body>
+    <div id="lol">
+
+      <!-- Modal -->
+      <div id="modal-create" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Buat Listing Baru</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="title">Judul</label>
+                  <input type="text" class="form-control" id="title" v-model="createHouse.title">
+                </div>
+                <div class="form-group">
+                  <label for="description">Deskripsi</label>
+                  <input type="text" class="form-control" id="description" v-model="createHouse.desc">
+                </div>
+
+                <div class="form-group">
+                  <label for="facilities">Fasilitas</label>
+                  <input type="text" class="form-control" id="facilities" v-model="createHouse.fasilitas">
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="owner">Pemilik</label>
+                      <input type="text" class="form-control" id="owner" v-model="createHouse.pemilik">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="price">Harga</label>
+                      <input type="text" class="form-control" id="price" v-model="createHouse.harga">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="area">Luas Tanah</label>
+                      <input type="text" class="form-control" id="area" v-model="createHouse.luasTanah">
+                    </div>
+                  </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="location">Lokasi</label>
+                        <input type="text" class="form-control" id="location" v-model="createHouse.lokasi">
+                      </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="condition">Kondisi</label>
+                      <input type="text" class="form-control" id="condition" v-model="createHouse.kondisi">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="phone">No HP</label>
+                      <input type="text" class="form-control" id="phone" v-model="createHouse.noHp">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="detail-loc">Detail Lokasi</label>
+                  <input type="text" class="form-control" id="detail-loc" v-model="createHouse.locDetail">
+                </div>
+                <div class="form-group">
+                  <label for="gambar">Upload Gambar</label>
+                  <input type="text" class="form-control" id="gambar" v-model="createHouse.gambar">
+                </div>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" v-on:click="createNewHouse()">SUBMIT</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    <div class="container">
+      <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#create" aria-controls="create" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a id="brand" class="navbar-brand" href="#">HOMEE</a>
+
+        <div class="collapse navbar-collapse" id="create">
+          <ul class="navbar-nav mr-auto">
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin: 0 3px">Cari</button>
+            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin: 0 3px" data-target="#create">Buat Listing Baru</button> -->
+            <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#modal-create">Buat Listing Baru</button>
+          </form>
+        </div>
+      </nav>
+
+      <div class="jumbotron">
+        <h1 class="display-3">Cari Rumah?</h1>
+        <br><br>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim</p>
+        <br>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p>
+      </div>
+
+      <div>
+        <div id="house-list" class="" v-for="house in houses">
+
+          <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+            <div class="card-block">
+              <h3><span class="badge badge-danger">{{ house.status }}</span>   {{ house.title }}</h1>
+              <p class="card-text">{{ house.desc}}</p>
+
+
+              <div id="demo" class="collapse">
+                <table style="border: none; border-collapse: collapse;">
+                  <tr>
+                    <tr>
+                      <td>Pemilik</td>
+                      <td>: {{ house.pemilik }}</td>
+                    </tr>
+                    <td>Harga</td>
+                    <td>: Rp {{ house.harga }}</td>
+                  </tr>
+                  <tr>
+                    <td>Luas Tanah</td>
+                    <td>: {{ house.luasTanah }} m2</td>
+                  </tr>
+                  <tr>
+                    <td>Lokasi</td>
+                    <td>: {{ house.lokasi }}</td>
+                  </tr>
+                  <tr>
+                    <td>Fasilitas</td>
+                    <td>: {{ house.fasilitas }}</td>
+                  </tr>
+                  <tr>
+                    <td>Kondisi</td>
+                    <td>: {{ house.kondisi }}</td>
+                  </tr>
+                  <tr>
+                    <td>No HP</td>
+                    <td>: {{ house.noHp }}</td>
+                  </tr>
+                  <tr>
+                    <td>Detail Lokasi</td>
+                    <td>: {{ house.locDetail }}</td>
+                  </tr>
+                </table>
+
+                  <img v-bind:src="house.gambar" alt=""  height="300" width="500">
+
+
+                  <img v-bind:src="house.gambar" alt=""  height="300" width="500">
+
+
+              <!-- </div> -->
+
+              </div>
+
+              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary float-right"  style="margin: 0 3px">View Detail</button>
+              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary float-right"  style="margin: 0 3px">DELETE</button>
+              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary float-right"  style="margin: 0 3px">UPDATE</button>
+            </div>
+          </div>
+          <br>
+        </div>
+    </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: "#lol",
+      data :{
+        houses: [],
+        createHouse: {
+          title     : "",
+          desc      : "",
+          luastanah : "",
+          harga     : "",
+          lokasi    : "",
+          fasilitas : "",
+          gambar    : "",
+          status    : "",
+          pemilik   : "",
+          kondisi   : "",
+          nohp      : "",
+          locDetail : ""
+        }
+      },
+      methods: {
+        getAllHouse: function() {
+          $.ajax({
+            url  : "http://localhost:3000/house",
+            type : "GET",
+            success: function( response) {
+              app.houses = response
+            }
+          });
+        },
+
+        createNewHouse: function() {
+          $.ajax({
+            url  : "http://localhost:3000/house/add",
+            type : "POST",
+            data : {
+              title     : app.createHouse.title,
+              desc      : app.createHouse.desc,
+              luastanah : app.createHouse.luasTanah,
+              harga     : app.createHouse.harga,
+              lokasi    : app.createHouse.lokasi,
+              fasilitas : app.createHouse.fasilitas,
+              gambar    : app.createHouse.gambar,
+              status    : app.createHouse.status,
+              pemilik   : app.createHouse.pemilik,
+              kondisi   : app.createHouse.kondisi,
+              nohp      : app.createHouse.noHp,
+              locDetail : app.createHouse.locDetail
+            },
+            success: function( response) {
+              console.log(response);
+              app.houses.push(response)
+
+              // reset form
+              app.createHouse.title = '',
+              app.createHouse.desc = '',
+              app.createHouse.luasTanah = '',
+              app.createHouse.harga = '',
+              app.createHouse.lokasi = '',
+              app.createHouse.fasilitas = '',
+              app.createHouse.gambar = '',
+              app.createHouse.status = '',
+              app.createHouse.pemilik = '',
+              app.createHouse.kondisi = '',
+              app.createHouse.noHp = '',
+              app.createHouse.locDetail = ''
+            }
+          }
+        )}
+    }
+  })
+    app.getAllHouse()
+  </script>
+  </body>
+</html>

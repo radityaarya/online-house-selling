@@ -13,11 +13,17 @@ module.exports = {
   createHouseList : (req, res) => {
     var newHouse = new house({
       title     : req.body.title,
+      pemilik   : req.body.pemilik,
+      noHp      : req.body.nohp,
+      status    : "Dijual",
+      desc      : req.body.desc,
       luasTanah : req.body.luastanah,
       harga     : req.body.harga,
       lokasi    : req.body.lokasi,
+      kondisi   : req.body.kondisi,
       fasilitas : req.body.fasilitas,
-      gambar    : req.body.gambar
+      gambar    : req.body.gambar,
+      locDetail : req.body.locdetail
     })
     newHouse.save( (err) => {
       if(err) res.json(err)

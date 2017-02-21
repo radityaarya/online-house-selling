@@ -5,11 +5,17 @@ var Schema     = mongoose.Schema;
 
 var houseSchema = new Schema({
   title     : String,
+  pemilik   : String,
+  status    : String,
+  desc      : String,
   luasTanah : String,
-  harga     : Number,
+  harga     : String,
   lokasi    : String,
   fasilitas : String,
-  gambar    : String
+  kondisi   : String,
+  noHp      : String,
+  gambar    : String,
+  locDetail : String
 },
 {
   timestamps : true
