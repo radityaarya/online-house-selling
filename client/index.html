@@ -140,7 +140,7 @@
               <p class="card-text">{{ house.desc}}</p>
 
 
-              <div v-bind:id="house._id" class="collapse">
+              <div v-bind:id="'aaa'+house._id" class="collapse">
                 <table style="border: none; border-collapse: collapse;">
                   <tr>
                     <tr>
@@ -186,9 +186,9 @@
 
               </div>
 
-              <button data-toggle="collapse" v-bind:data-target="'#'+house._id" class="btn btn-primary float-right"  style="margin: 0 3px">View Detail</button>
-              <button data-toggle="collapse" v-on:click="deleteHouse(house._id, house._id)" class="btn btn-primary btn-danger float-right"  style="margin: 0 3px">DELETE</button>
-              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-success float-right"  style="margin: 0 3px">UPDATE</button>
+              <button data-toggle="collapse" v-bind:data-target="'#aaa'+house._id" class="btn btn-outline-primary float-right"  style="margin: 0 3px">View Detail</button>
+              <button data-toggle="collapse" v-on:click="deleteHouse(house._id, house._id)" class="btn btn-primary btn-outline-danger float-right"  style="margin: 0 3px">DELETE</button>
+              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-outline-success float-right"  style="margin: 0 3px">UPDATE</button>
             </div>
           </div>
           <br>
@@ -269,6 +269,7 @@
         )},
 
         deleteHouse : function(id, _id) {
+          console.log(id);
           $(document).ready(function() {
             $.ajax({
               url  :  `http://localhost:3000/house/${_id}`,
