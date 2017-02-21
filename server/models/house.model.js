@@ -9,7 +9,6 @@ var houseSchema = new Schema({
   harga     : Number,
   lokasi    : String,
   fasilitas : String,
-  lainnya   : String,
   gambar    : String
 },
 {

@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var house = require('./route/house.route.js')
+var house = require('./routes/house.route.js')
 
 var app = express();
 
