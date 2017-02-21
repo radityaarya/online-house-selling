@@ -134,13 +134,13 @@
       <div>
         <div id="house-list" class="" v-for="house in houses">
 
-          <div class="card card-inverse" style="background-color: #333; border-color: #333;">
+          <div v-bind:id="house._id" class="card card-inverse" style="background-color: #333; border-color: #333;">
             <div class="card-block">
               <h3><span class="badge badge-danger">{{ house.status }}</span>   {{ house.title }}</h1>
               <p class="card-text">{{ house.desc}}</p>
 
 
-              <div id="demo" class="collapse">
+              <div v-bind:id="house._id" class="collapse">
                 <table style="border: none; border-collapse: collapse;">
                   <tr>
                     <tr>
@@ -186,9 +186,9 @@
 
               </div>
 
-              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary float-right"  style="margin: 0 3px">View Detail</button>
-              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary float-right"  style="margin: 0 3px">DELETE</button>
-              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary float-right"  style="margin: 0 3px">UPDATE</button>
+              <button data-toggle="collapse" v-bind:data-target="'#'+house._id" class="btn btn-primary float-right"  style="margin: 0 3px">View Detail</button>
+              <button data-toggle="collapse" v-on:click="deleteHouse(house._id, house._id)" class="btn btn-primary btn-danger float-right"  style="margin: 0 3px">DELETE</button>
+              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-success float-right"  style="margin: 0 3px">UPDATE</button>
             </div>
           </div>
           <br>
@@ -266,7 +266,19 @@
               app.createHouse.locDetail = ''
             }
           }
-        )}
+        )},
+
+        deleteHouse : function(id, _id) {
+          $(document).ready(function() {
+            $.ajax({
+              url  :  `http://localhost:3000/house/${_id}`,
+              type : "DELETE",
+              success: function(result) {
+                $(`#${id}`).remove()
+              }
+            })
+          })
+        }
     }
   })
     app.getAllHouse()
