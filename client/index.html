@@ -3,16 +3,20 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="gmaps.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js"></script>
     <title>Homee -Jual Beli Properti Terpercaya </title>
   </head>
   <body>
     <div id="lol">
 
-      <!-- Modal -->
+      <!-- Modal CREATE-->
       <div id="modal-create" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -102,6 +106,97 @@
         </div>
       </div>
 
+      <!--  Modal UPDATE-->
+      <div id="modal-update" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Update </h4>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="title">Judul</label>
+                  <input type="text" class="form-control" id="title" v-model="updateHouse.title">
+                </div>
+                <div class="form-group">
+                  <label for="description">Deskripsi</label>
+                  <input type="text" class="form-control" id="description" v-model="updateHouse.desc">
+                </div>
+
+                <div class="form-group">
+                  <label for="facilities">Fasilitas</label>
+                  <input type="text" class="form-control" id="facilities" v-model="updateHouse.fasilitas">
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="owner">Pemilik</label>
+                      <input type="text" class="form-control" id="owner" v-model="updateHouse.pemilik">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="price">Harga</label>
+                      <input type="text" class="form-control" id="price" v-model="updateHouse.harga">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="area">Luas Tanah</label>
+                      <input type="text" class="form-control" id="area" v-model="updateHouse.luasTanah">
+                    </div>
+                  </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="location">Lokasi</label>
+                        <input type="text" class="form-control" id="location" v-model="updateHouse.lokasi">
+                      </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="condition">Kondisi</label>
+                      <input type="text" class="form-control" id="condition" v-model="updateHouse.kondisi">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="phone">No HP</label>
+                      <input type="text" class="form-control" id="phone" v-model="updateHouse.noHp">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="detail-loc">Detail Lokasi</label>
+                  <input type="text" class="form-control" id="detail-loc" v-model="updateHouse.locDetail">
+                </div>
+                <div class="form-group">
+                  <label for="gambar">Upload Gambar</label>
+                  <input type="text" class="form-control" id="gambar" v-model="updateHouse.gambar">
+                </div>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-default" data-dismiss="modal">Cancel</button>
+              <button v-on:click="updateHouse(house._id)" class="btn btn-primary btn-danger float-right"  style="margin: 0 3px">UPDATE</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     <div class="container">
       <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#create" aria-controls="create" aria-expanded="false" aria-label="Toggle navigation">
@@ -115,7 +210,6 @@
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin: 0 3px">Cari</button>
-            <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin: 0 3px" data-target="#create">Buat Listing Baru</button> -->
             <button class="btn btn-outline-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#modal-create">Buat Listing Baru</button>
           </form>
         </div>
@@ -131,6 +225,7 @@
         </p>
       </div>
 
+
       <div>
         <div id="house-list" class="" v-for="house in houses">
 
@@ -138,15 +233,15 @@
             <div class="card-block">
               <h3><span class="badge badge-danger">{{ house.status }}</span>   {{ house.title }}</h1>
               <p class="card-text">{{ house.desc}}</p>
+              <div id="map" class="boxMaps"></div>
 
-
-              <div v-bind:id="'aaa'+house._id" class="collapse">
+              <div v-bind:id="'aaa'+house._id" class="">
                 <table style="border: none; border-collapse: collapse;">
-                  <tr>
                     <tr>
                       <td>Pemilik</td>
                       <td>: {{ house.pemilik }}</td>
                     </tr>
+                    <tr>
                     <td>Harga</td>
                     <td>: Rp {{ house.harga }}</td>
                   </tr>
@@ -176,19 +271,18 @@
                   </tr>
                 </table>
 
-                  <img v-bind:src="house.gambar" alt=""  height="300" width="500">
+                  <!-- <img v-bind:src="house.gambar" alt=""  height="300" width="500"> -->
 
-
-                  <img v-bind:src="house.gambar" alt=""  height="300" width="500">
+                  <!-- <img v-bind:src="house.gambar" alt=""  height="300" width="500"> -->
 
 
               <!-- </div> -->
 
               </div>
 
-              <button data-toggle="collapse" v-bind:data-target="'#aaa'+house._id" class="btn btn-outline-primary float-right"  style="margin: 0 3px">View Detail</button>
-              <button data-toggle="collapse" v-on:click="deleteHouse(house._id, house._id)" class="btn btn-primary btn-outline-danger float-right"  style="margin: 0 3px">DELETE</button>
-              <button data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-outline-success float-right"  style="margin: 0 3px">UPDATE</button>
+              <!-- <button data-toggle="collapse" v-bind:data-target="'#aaa'+house._id" class="btn btn-outline-primary float-right"  style="margin: 0 3px">View Detail</button> -->
+              <button v-on:click="deleteHouse(house._id, house._id)" class="btn btn-primary btn-outline-danger float-right"  style="margin: 0 3px">DELETE</button>
+              <!-- <button data-toggle="modal" data-target="#modal-update" class="btn btn-primary btn-outline-success float-right"  style="margin: 0 3px">UPDATE</button> -->
             </div>
           </div>
           <br>
@@ -199,11 +293,39 @@
     </div>
   </div>
   <script>
+
+  $(document).ready(function() {
+      map = new GMaps({
+          div: '#map',
+          zoom: 16,
+          lat: -6.260772,
+          lng: 106.781638,
+      })
+      map.addMarker({
+          lat: -6.260772,
+          lng: 106.781638,
+      });
+  });
+
     var app = new Vue({
       el: "#lol",
       data :{
         houses: [],
         createHouse: {
+          title     : "",
+          desc      : "",
+          luastanah : "",
+          harga     : "",
+          lokasi    : "",
+          fasilitas : "",
+          gambar    : "",
+          status    : "",
+          pemilik   : "",
+          kondisi   : "",
+          nohp      : "",
+          locDetail : ""
+        },
+        updateHouse: {
           title     : "",
           desc      : "",
           luastanah : "",
@@ -268,6 +390,31 @@
           }
         )},
 
+        // updateHouse : function(_id){
+        //   $(document).ready(function() {
+        //     $.ajax({
+        //       url  :  `http://localhost:3000/house/${_id}`,
+        //       type : "PUT",
+        //       data : {
+        //         title     : app.updateHouse.title,
+        //         desc      : app.updateHouse.desc,
+        //         luastanah : app.updateHouse.luasTanah,
+        //         harga     : app.updateHouse.harga,
+        //         lokasi    : app.updateHouse.lokasi,
+        //         fasilitas : app.updateHouse.fasilitas,
+        //         gambar    : app.updateHouse.gambar,
+        //         status    : app.updateHouse.status,
+        //         pemilik   : app.updateHouse.pemilik,
+        //         kondisi   : app.updateHouse.kondisi,
+        //         nohp      : app.updateHouse.noHp,
+        //         locDetail : app.updateHouse.locDetail
+        //       },
+        //       success: function(result) {
+        //       }
+        //     })
+        //   })
+        // },
+
         deleteHouse : function(id, _id) {
           console.log(id);
           $(document).ready(function() {
@@ -284,5 +431,6 @@
   })
     app.getAllHouse()
   </script>
+  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnamoLDudzKSTRtbB2sfEPejjOMiTSIoI&callback=initMap"></script> -->
   </body>
 </html>
